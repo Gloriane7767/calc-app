@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin: 50px; }
+        .calculator { display: inline-block; border: 2px solid #333; padding: 20px; border-radius: 10px; }
+        .display { width: 200px; height: 40px; font-size: 18px; text-align: right; margin-bottom: 10px; }
+        .buttons { display: grid; grid-template-columns: repeat(4, 50px); gap: 5px; }
+        button { width: 50px; height: 50px; font-size: 16px; cursor: pointer; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" readonly>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendToDisplay('^')">^</button>
+            <button onclick="sqrt()">√</button>
+            <button onclick="factorial()">!</button>
+            
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="log()">ln</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            
+            <button onclick="calculate()" style="grid-column: span 4; width: 210px;">=</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        
+        function appendToDisplay(value) {
+            display.value += value;
+        }
+        
+        function clearDisplay() {
+            display.value = '';
+        }
+        
+        function calculate() {
+            try {
+                display.value = eval(display.value.replace('^', '**'));
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+        
+        function sqrt() {
+            try {
+                let value = parseFloat(display.value);
+                if (value < 0) throw new Error('Invalid input');
+                display.value = Math.sqrt(value);
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+        
+        function factorial() {
+            try {
+                let n = parseInt(display.value);
+                if (n < 0 || n > 20) throw new Error('Invalid input');
+                let result = 1;
+                for (let i = 2; i <= n; i++) result *= i;
+                display.value = result;
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+        
+        function log() {
+            try {
+                let value = parseFloat(display.value);
+                if (value <= 0) throw new Error('Invalid input');
+                display.value = Math.log(value);
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
