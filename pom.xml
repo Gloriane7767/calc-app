@@ -49,6 +49,15 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>com.gloriane.CalculatorGUI</mainClass>
+                    <commandlineArgs>--module-path ${javafx.runtime.path} --add-modules javafx.controls,javafx.fxml</commandlineArgs>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
